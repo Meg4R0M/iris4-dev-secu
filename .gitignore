@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite
+*.db
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / env locaux éventuels
+.env
+*.local.env

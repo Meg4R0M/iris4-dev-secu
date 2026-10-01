@@ -1,0 +1,9 @@
+2026-03-14 09:05:40 INFO  login success user=alice ip=42.19.88.120
+2026-03-14 10:21:00 WARN  login failed  user=admin ip=185.220.101.42 reason=bad_password
+2026-03-14 10:21:05 WARN  login failed  user=admin ip=185.220.101.42 reason=bad_password
+2026-03-14 10:21:10 WARN  login failed  user=mousse ip=185.220.101.42 reason=bad_password
+2026-03-14 10:21:12 WARN  login failed  user=mousse ip=185.220.101.42 reason=bad_password
+2026-03-14 10:21:15 WARN  login failed  user=mousse ip=185.220.101.42 reason=bad_password
+2026-03-14 10:21:18 INFO  login success user=mousse ip=185.220.101.42 note=weak_password_1234
+2026-03-14 10:21:33 INFO  login success user=bob ip=185.220.101.42 note=sql_bypass_pattern_detected
+2026-03-14 10:27:55 WARN  jwt accepted alg=none user=pirate role=admin ip=185.220.101.42

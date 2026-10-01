@@ -1,0 +1,7 @@
+services:
+  cible-recon:
+    build: ./app
+    container_name: iris4-recon
+    ports:
+      - "8001:8001"
+    restart: unless-stopped

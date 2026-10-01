@@ -1,0 +1,7 @@
+services:
+  boutique:
+    build: ./app
+    container_name: iris4-boutique
+    ports:
+      - "8002:8002"
+    restart: unless-stopped

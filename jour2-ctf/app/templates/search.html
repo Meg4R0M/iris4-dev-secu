@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<h1>Recherche d'équipage</h1>
+<form method="get" class="card" style="border-left-color:var(--cyan)">
+<label>Nom d'un matelot</label><input name="q" value="{{ q }}">
+<p><button type="submit">Chercher</button></p>
+</form>
+{% if error %}<p class="msg" style="color:var(--pink)">Erreur SQL : {{ error }}</p>{% endif %}
+{% if results %}<pre>{% for r in results %}{{ r }}
+{% endfor %}</pre>{% endif %}
+{% endblock %}

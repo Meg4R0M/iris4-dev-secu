@@ -1,0 +1,46 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistant de la Boutique - IA</title>
+<style>
+:root{--bg:#0A0E1A;--card:#141927;--grid:#2A3148;--green:#00FF9C;--cyan:#00D4FF;--pink:#FF3399;--txt:#E8EAF0;--muted:#8892B0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:780px;margin:30px auto;padding:0 20px}h1{font-size:26px}
+.brand{color:var(--pink);font-family:ui-monospace,Consolas,monospace;font-weight:700}
+.card{background:var(--card);border:1px solid var(--grid);border-left:4px solid var(--pink);border-radius:8px;padding:16px;margin:14px 0}
+textarea,input,button{font:inherit;background:#0d1322;color:var(--txt);border:1px solid var(--grid);border-radius:6px;padding:10px;width:100%}
+button{background:var(--green);color:#04121a;font-weight:700;border:none;cursor:pointer;width:auto;padding:10px 18px;margin-top:8px}
+label{display:block;color:var(--muted);font-size:13px;margin:10px 0 3px}
+#out{white-space:pre-wrap;font-family:ui-monospace,Consolas,monospace;color:var(--cyan);min-height:40px}
+.tab{display:inline-block;margin-right:14px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;padding-bottom:4px}
+.tab.active{color:var(--green);border-color:var(--green)}
+footer{color:#5B6680;text-align:center;padding:26px;font-size:12px;font-family:ui-monospace,monospace}
+</style></head><body><main>
+<p class="brand">⚓ Assistant IA - La Boutique du Capitaine</p>
+<p style="margin:0 0 6px"><a href="/scoreboard" style="color:#00FF9C;font-family:ui-monospace,monospace;text-decoration:none">&#127942; Scoreboard &rarr;</a></p>
+<h1>Discutez avec l'assistant</h1>
+<p style="color:var(--muted)">Il connaît le catalogue… et quelques secrets qu'il est censé garder.</p>
+<div>
+<span class="tab active" onclick="mode('chat')">Chat direct</span>
+<span class="tab" onclick="mode('fetch')">Résumer un contenu</span>
+</div>
+<div class="card" id="chatbox">
+<label id="lbl">Votre message</label>
+<textarea id="msg" rows="4"></textarea>
+<button onclick="send()">Envoyer</button>
+</div>
+<div class="card" style="border-left-color:var(--cyan)"><label>Réponse de l'assistant</label><div id="out"></div></div>
+<footer>Application d'IA DÉLIBÉRÉMENT VULNÉRABLE - IRIS4 Dev · Humanix Cybersecurity</footer>
+</main>
+<script>
+let M='chat';
+function mode(m){M=m;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+ event.target.classList.add('active');
+ document.getElementById('lbl').textContent = m==='chat'?'Votre message':'Contenu à résumer (page, fichier…)';}
+async function send(){
+ const v=document.getElementById('msg').value;
+ let url,body;
+ if(M==='chat'){url='/chat';body={message:v};}else{url='/fetch';body={content:v};}
+ const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ const j=await r.json();document.getElementById('out').textContent=j.reply||j.summary||JSON.stringify(j);
+}
+</script></body></html>

@@ -1,0 +1,7 @@
+services:
+  assistant:
+    build: ./app
+    container_name: iris4-assistant-ia
+    ports:
+      - "8003:8003"
+    restart: unless-stopped

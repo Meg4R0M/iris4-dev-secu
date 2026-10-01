@@ -1,0 +1,8 @@
+2026-03-14 10:19:12 ERROR sql: syntax near "OR '1'='1" query=search ip=185.220.101.42
+2026-03-14 10:20:01 WARN  sql: UNION-based query on /search returned 4 rows ip=185.220.101.42
+2026-03-14 10:21:34 INFO  api/profile accessed id=1 by session_user=bob (owner mismatch) ip=185.220.101.42
+2026-03-14 10:21:41 INFO  api/profile accessed id=4 by session_user=bob (owner mismatch) ip=185.220.101.42
+2026-03-14 10:24:05 WARN  download: path outside base requested file=../../etc/passwd ip=185.220.101.42
+2026-03-14 10:24:40 WARN  download: hidden file served file=.secret_cargo ip=185.220.101.42
+2026-03-14 10:27:55 ERROR jwt: token with alg=none granted admin scope ip=185.220.101.42
+2026-03-14 11:02:17 WARN  guestbook: entry contains <script> tag author=pirate ip=185.220.101.42

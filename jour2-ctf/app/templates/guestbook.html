@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block content %}
+<h1>Livre d'or du Capitaine</h1>
+<form method="post" class="card" style="border-left-color:var(--green)">
+<label>Votre nom</label><input name="author">
+<label>Votre message</label><textarea name="body" rows="3" style="width:100%"></textarea>
+<p><button type="submit">Signer</button></p>
+</form>
+<p style="color:var(--muted);font-size:13px">Le capitaine relit régulièrement son livre d'or…</p>
+{% for m in messages %}
+<div class="card" style="border-left-color:var(--cyan)">
+<b>{{ m['author']|safe }}</b><br>{{ m['body']|safe }}
+</div>
+{% endfor %}
+{% endblock %}

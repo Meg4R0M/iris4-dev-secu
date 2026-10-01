@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block content %}
+<h1>Accueil personnalisé</h1>
+<p style="color:var(--muted)">Passez votre nom via <code>?name=</code> dans l'URL.</p>
+{{ greet_html|safe }}
+{% if hint %}<p class="msg">{{ hint }}</p>{% endif %}
+{% endblock %}

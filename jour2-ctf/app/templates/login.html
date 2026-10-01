@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}
+<h1>Connexion</h1>
+<form method="post" class="card" style="border-left-color:var(--green)">
+<label>Nom d'utilisateur</label><input name="username" autofocus>
+<label>Mot de passe</label><input name="password" type="password">
+<p><button type="submit">Embarquer</button></p>
+</form>
+{% if msg %}<p class="msg">{{ msg }}</p>{% endif %}
+{% endblock %}
