@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: Boutique du Capitaine - API
+  version: "2.1"
+  description: >
+    Spec publique de l'API. A analyser pour le threat modeling.
+    (Certains choix de securite sont volontairement discutables.)
+servers:
+  - url: https://api.boutique.pirate
+
+# Note : le schema de securite n'est applique qu'a une partie des endpoints.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /login:
+    post:
+      summary: Authentification, renvoie un JWT (HS256, TTL 24h, pas de revocation)
+      security: []
+      responses: { "200": { description: token }, "401": { description: refuse } }
+
+  /api/v1/products:
+    get:
+      summary: Catalogue public
+      security: []
+      parameters:
+        - { name: sort, in: query, schema: { type: string } }
+      responses: { "200": { description: liste } }
+
+  /api/profile/{id}:
+    get:
+      summary: Profil d'un utilisateur
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      # Remarque : l'autorisation verifie-t-elle que {id} est bien le votre ?
+      responses: { "200": { description: profil } }
+
+  /api/me:
+    get:
+      summary: Infos du porteur du token
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: moi } }
+
+  /download:
+    get:
+      summary: Telecharge une facture
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - { name: file, in: query, required: true, schema: { type: string } }
+      responses: { "200": { description: fichier } }
+
+  /graphql:
+    post:
+      summary: API GraphQL (introspection activee)
+      security: []
+      responses: { "200": { description: resultat } }
+
+  /assistant/chat:
+    post:
+      summary: Assistant IA (repond avec acces a des outils fetch_url/read_file/sql_query)
+      security: []
+      responses: { "200": { description: reponse } }
+
+  /api/internal/v2/ledger:
+    get:
+      summary: Export comptable (reporting)
+      # Pas de securite declaree : considere "interne", mais joignable.
+      security: []
+      responses: { "200": { description: export CSV } }

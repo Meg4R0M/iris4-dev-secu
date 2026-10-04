@@ -1,31 +1,38 @@
-# TP1 - Carte de surface d'attaque (à remplir)
+# TP1 - Carte de surface d'attaque (a remplir)
 
 Cible : http://localhost:8001
 
-## 1. Technologies détectées
-| Indice | Où l'avez-vous trouvé ? | Ce que ça révèle |
-|--------|-------------------------|------------------|
+## 1. Technologies & fingerprinting
+Qu'avez-vous pu determiner, et comment (en-tetes volontairement discrets ici) ?
+| Indice | Source | Deduction |
+|--------|--------|-----------|
 | | | |
 
-## 2. Endpoints découverts
-| Route | Méthode | Comment trouvée (menu / robots / erreur / fuzzing) | Intérêt pour un attaquant |
-|-------|---------|-----------------------------------------------------|---------------------------|
+## 2. Endpoints & methodes decouverts
+| Route | Methode | Comment trouvee (fuzzing / JS / git / erreur / introspection) | Interet |
+|-------|---------|----------------------------------------------------------------|---------|
 | | | | |
 
-## 3. Cookies
-| Nom | HttpOnly ? | Secure ? | SameSite ? | Risque |
-|-----|-----------|----------|------------|--------|
-| | | | | |
-
-## 4. En-têtes intéressants
-| En-tête | Valeur | Pourquoi c'est un problème |
-|---------|--------|----------------------------|
+## 3. Vhosts / en-tetes Host
+| Vhost | Comment identifie | Ce qu'il debloque |
+|-------|-------------------|-------------------|
 | | | |
 
-## 5. Messages d'erreur / fuites d'information
--
+## 4. Artefacts exposes (dev laisse en prod)
+| Artefact | Acces | Information fuitee |
+|----------|-------|--------------------|
+| | | |
 
-## 6. Synthèse - 3 points d'entrée prioritaires à tester (Jour 2)
+## 5. Chaines de decouverte des fragments
+Decrivez la chaine complete pour chaque fragment (c'est le coeur du livrable).
+- Fragment 1 :  (etapes ...)
+- Fragment 2 :  (etapes ...)
+- Fragment 3 :  (etapes ...)
+
+## 6. Flag reconstitue
+HUMANIX{recon_________________}
+
+## 7. Remediation (3 recommandations prioritaires)
 1.
 2.
 3.

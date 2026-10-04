@@ -1,0 +1,71 @@
+# Architecture de reference - La Boutique du Capitaine (document d'analyse, non destine a tourner tel quel)
+# A LIRE comme une source pour reconstituer le DFD et les limites de confiance.
+version: "3.9"
+
+networks:
+  edge:        # expose a Internet
+  internal:    # reseau prive entre services
+  data:        # reseau des bases de donnees
+
+services:
+
+  frontend:
+    image: boutique/frontend:1.4
+    networks: [edge]
+    # SPA qui parle a l'api-gateway. Bundle JS servi au client.
+
+  api-gateway:
+    image: boutique/gateway:2.1
+    networks: [edge, internal]
+    environment:
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}      # meme cle que auth-svc (partagee)
+    # Route le trafic public vers les services internes. Valide (ou pas) les JWT.
+
+  auth-svc:
+    image: boutique/auth:2.1
+    networks: [internal]
+    environment:
+      - JWT_SIGNING_KEY=${JWT_SIGNING_KEY}      # emet les tokens, HS256
+    # Emet les JWT a la connexion. Pas de mecanisme de revocation.
+
+  catalog-svc:
+    image: boutique/catalog:1.9
+    networks: [internal, data]
+
+  orders-svc:
+    image: boutique/orders:1.2
+    networks: [internal, data]
+    # Expose /api/profile/{id}, /api/me, /download, /api/internal/v2/ledger
+
+  llm-assistant:
+    image: boutique/assistant:0.5
+    networks: [internal, edge]      # joignable depuis l'edge ET l'interne
+    environment:
+      - TOOLS=fetch_url,read_file,sql_query     # outils donnes au modele
+    # Repond aux clients. Ses sorties sont affichees telles quelles dans le chat.
+
+  worker:
+    image: boutique/worker:1.0
+    networks: [internal, data]
+    # Consomme les jobs (exports CSV) depuis Redis. Ecrit dans le bucket.
+
+  redis:
+    image: redis:7
+    networks: [internal]
+    # File de jobs. Pas d'authentification configuree.
+
+  postgres:
+    image: postgres:16
+    networks: [data]
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    # Un seul compte applicatif, utilise par tous les services (droits larges).
+
+  object-store:
+    image: minio/minio
+    networks: [internal, edge]      # bucket joignable depuis l'edge
+    # Stocke les exports CSV. Noms d'objets previsibles (export-<id>.csv).
+
+  # Note infra : les services tournent sur des instances cloud avec un service
+  # de metadonnees accessible a http://169.254.169.254 (role IAM attache).
+  # Le pipeline CI/CD deploie via un runner qui detient les secrets de prod.
