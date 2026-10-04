@@ -54,6 +54,7 @@ docker compose version
 | [`jour3-llm/`](jour3-llm/) | J3 | TP7 | Prompt injection sur une application d'IA |
 | [`jour3-incident/`](jour3-incident/) | J3 | TP8 | Investigation d'incident a partir de logs |
 | [`docs/`](docs/) | - | - | Charte, matrice de remediation, ressources |
+| [`enonces/`](enonces/) | tous | TP1-8 | Fiches de TP (PDF) a destination des etudiants |
 
 Chaque dossier contient son propre `README.md` avec l'enonce du TP.
 
